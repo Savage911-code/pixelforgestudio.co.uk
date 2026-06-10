@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>FORGE — Gym</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:#060406;color:#fff;font-family:'Space Grotesk',sans-serif;overflow-x:hidden;}
+canvas#bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
+
+/* BRUTAL FULL-SCREEN HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 0 80px;position:relative;z-index:1;overflow:hidden;}
+.hero-number{position:absolute;top:50%;right:-40px;transform:translateY(-50%);font-size:clamp(15rem,30vw,25rem);font-weight:900;color:rgba(220,38,38,0.05);line-height:1;letter-spacing:-0.05em;pointer-events:none;user-select:none;}
+.hero-top{position:absolute;top:0;left:0;right:0;padding:28px 80px;display:flex;justify-content:space-between;align-items:center;}
+.logo-text{font-size:1.4rem;font-weight:900;letter-spacing:0.15em;text-transform:uppercase;} .logo-text span{color:#dc2626;}
+.nav-pill{background:rgba(220,38,38,0.12);border:1px solid rgba(220,38,38,0.3);color:#fff;padding:10px 24px;border-radius:100px;font-size:0.8rem;font-weight:700;text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;transition:background .2s;}
+.nav-pill:hover{background:rgba(220,38,38,0.25);}
+.hero-content{padding:0 80px;position:relative;}
+.hero-label{display:flex;align-items:center;gap:16px;margin-bottom:20px;}
+.label-line{width:40px;height:2px;background:#dc2626;}
+.label-text{font-size:0.75rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(220,38,38,0.8);}
+h1{font-size:clamp(5rem,14vw,12rem);font-weight:900;line-height:.9;letter-spacing:-0.05em;text-transform:uppercase;margin-bottom:0;}
+.h1-outline{-webkit-text-stroke:2px rgba(255,255,255,0.15);color:transparent;}
+.h1-red{color:#dc2626;text-shadow:0 0 80px rgba(220,38,38,0.4);}
+.hero-bottom{display:flex;justify-content:space-between;align-items:flex-end;margin-top:40px;flex-wrap:wrap;gap:20px;}
+.hero-desc{font-size:1rem;color:rgba(255,255,255,.45);max-width:380px;line-height:1.7;font-weight:400;}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-red{display:inline-flex;align-items:center;gap:8px;background:#dc2626;color:#fff;padding:16px 36px;border-radius:4px;font-size:0.875rem;font-weight:800;text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;box-shadow:0 0 50px rgba(220,38,38,0.4);transition:transform .2s,box-shadow .2s;}
+.btn-red:hover{transform:translateY(-2px);box-shadow:0 0 80px rgba(220,38,38,0.6);}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;background:transparent;border:1px solid rgba(255,255,255,0.15);color:#fff;padding:16px 36px;border-radius:4px;font-size:0.875rem;font-weight:600;text-decoration:none;letter-spacing:0.05em;text-transform:uppercase;transition:border-color .2s;}
+.btn-ghost:hover{border-color:rgba(220,38,38,0.5);}
+
+/* DIAGONAL STATS */
+.stats-diagonal{position:relative;z-index:1;background:linear-gradient(135deg,rgba(220,38,38,0.1),rgba(249,115,22,0.05));border-top:1px solid rgba(220,38,38,0.15);border-bottom:1px solid rgba(220,38,38,0.15);padding:60px 80px;clip-path:polygon(0 0,100% 0,100% 85%,0 100%);}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;}
+.stat-item{padding:0 40px 0 0;border-right:1px solid rgba(220,38,38,0.15);}
+.stat-item:last-child{border-right:none;padding:0 0 0 40px;}
+.stat-item:not(:first-child){padding-left:40px;}
+.stat-big{font-size:4rem;font-weight:900;line-height:1;color:#dc2626;text-shadow:0 0 30px rgba(220,38,38,0.3);}
+.stat-label{font-size:0.7rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-top:8px;}
+
+/* PROGRAMS — ACCORDION STYLE */
+.programs{padding:120px 80px;position:relative;z-index:1;}
+.prog-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:60px;}
+.prog-header h2{font-size:clamp(2rem,4vw,3.5rem);font-weight:900;text-transform:uppercase;letter-spacing:-0.03em;}
+.prog-header p{font-size:0.85rem;color:rgba(255,255,255,.35);max-width:240px;text-align:right;line-height:1.6;}
+.prog-list{display:flex;flex-direction:column;gap:0;}
+.prog-item{border-top:1px solid rgba(220,38,38,0.12);padding:28px 0;display:grid;grid-template-columns:60px 1fr auto auto;align-items:center;gap:24px;cursor:pointer;transition:background .2s;}
+.prog-item:hover{background:rgba(220,38,38,0.04);padding-left:12px;padding-right:12px;border-radius:8px;}
+.prog-item:last-child{border-bottom:1px solid rgba(220,38,38,0.12);}
+.prog-num{font-size:0.75rem;font-weight:700;color:rgba(220,38,38,0.5);letter-spacing:0.08em;}
+.prog-name{font-size:1.1rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;}
+.prog-desc{font-size:0.8rem;color:rgba(255,255,255,.35);margin-top:4px;font-weight:400;text-transform:none;letter-spacing:0;}
+.prog-intensity{display:flex;gap:4px;}
+.pip{width:8px;height:8px;border-radius:50%;background:rgba(220,38,38,0.2);}
+.pip.on{background:#dc2626;box-shadow:0 0 8px rgba(220,38,38,0.6);}
+.prog-arrow{font-size:1.2rem;color:rgba(220,38,38,0.4);transition:transform .2s,color .2s;}
+.prog-item:hover .prog-arrow{transform:translateX(6px);color:#dc2626;}
+
+/* PRICING CTA */
+.pricing-cta{padding:0 80px 120px;position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+.price-card{border-radius:16px;padding:48px 40px;display:flex;flex-direction:column;gap:20px;transition:transform .3s;}
+.price-card:hover{transform:translateY(-8px);}
+.price-card.dark{background:rgba(220,38,38,0.06);border:1px solid rgba(220,38,38,0.15);}
+.price-card.red{background:linear-gradient(135deg,#dc2626,#f97316);border:none;}
+.price-name{font-size:0.75rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;opacity:.6;}
+.price-amount{font-size:4rem;font-weight:900;line-height:1;}
+.price-per{font-size:1rem;font-weight:400;opacity:.6;}
+.price-features{list-style:none;display:flex;flex-direction:column;gap:10px;flex:1;}
+.price-features li{font-size:0.875rem;opacity:.7;display:flex;align-items:center;gap:10px;}
+.price-features li::before{content:'—';opacity:.4;flex-shrink:0;}
+.price-btn{display:block;text-align:center;padding:14px;border-radius:8px;font-size:0.875rem;font-weight:800;text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;transition:transform .2s;}
+.price-btn.outline{border:1px solid rgba(220,38,38,0.3);color:#fff;}
+.price-btn.outline:hover{border-color:#dc2626;}
+.price-btn.solid{background:rgba(0,0,0,0.3);color:#fff;}
+
+footer{padding:32px 80px;border-top:1px solid rgba(220,38,38,0.1);display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1;}
+footer p{font-size:0.8rem;color:rgba(255,255,255,.2);}
+
+@media(max-width:900px){.hero-top,.hero-content,.hero-bottom,.stats-diagonal,.programs,.pricing-cta,footer{padding-left:24px;padding-right:24px;}.stats-grid,.pricing-cta{grid-template-columns:1fr 1fr;}.prog-item{grid-template-columns:40px 1fr auto;}.prog-intensity{display:none;}}
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+
+<section class="hero">
+  <div class="hero-number">01</div>
+  <div class="hero-top">
+    <div class="logo-text">FOR<span>GE</span></div>
+    <a href="#join" class="nav-pill">Join Now</a>
+  </div>
+  <div class="hero-content">
+    <div class="hero-label"><span class="label-line"></span><span class="label-text">Rochdale's #1 Gym</span></div>
+    <h1><span class="h1-outline">BUILD</span><br /><span class="h1-red">YOUR</span><br /><span class="h1-outline">LEGACY</span></h1>
+    <div class="hero-bottom">
+      <p class="hero-desc">State-of-the-art equipment. Expert coaches. A community that pushes you to your absolute limit.</p>
+      <div class="hero-actions">
+        <a href="#join" class="btn-red">Join Today &rarr;</a>
+        <a href="#programs" class="btn-ghost">Programs</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stats-diagonal">
+  <div class="stats-grid">
+    <div class="stat-item"><div class="stat-big">2k+</div><div class="stat-label">Members</div></div>
+    <div class="stat-item"><div class="stat-big">50+</div><div class="stat-label">Classes/Week</div></div>
+    <div class="stat-item"><div class="stat-big">15</div><div class="stat-label">Expert Coaches</div></div>
+    <div class="stat-item"><div class="stat-big">24/7</div><div class="stat-label">Access</div></div>
+  </div>
+</div>
+
+<section class="programs" id="programs">
+  <div class="prog-header">
+    <h2>Our Programs</h2>
+    <p>Every level, every goal. Find your perfect training program.</p>
+  </div>
+  <div class="prog-list">
+    <div class="prog-item"><div class="prog-num">01</div><div><div class="prog-name">Strength & Conditioning</div><div class="prog-desc">Build raw power and athletic performance</div></div><div class="prog-intensity"><div class="pip on"></div><div class="pip on"></div><div class="pip on"></div><div class="pip on"></div><div class="pip"></div></div><div class="prog-arrow">&rarr;</div></div>
+    <div class="prog-item"><div class="prog-num">02</div><div><div class="prog-name">Boxing & MMA</div><div class="prog-desc">Learn to fight, get fit, build confidence</div></div><div class="prog-intensity"><div class="pip on"></div><div class="pip on"></div><div class="pip on"></div><div class="pip on"></div><div class="pip on"></div></div><div class="prog-arrow">&rarr;</div></div>
+    <div class="prog-item"><div class="prog-num">03</div><div><div class="prog-name">HIIT Classes</div><div class="prog-desc">Maximum calories in minimum time</div></div><div class="prog-intensity"><div class="pip on"></div><div class="pip on"></div><div class="pip on"></div><div class="pip on"></div><div class="pip"></div></div><div class="prog-arrow">&rarr;</div></div>
+    <div class="prog-item"><div class="prog-num">04</div><div><div class="prog-name">Spin Classes</div><div class="prog-desc">High-energy cycling with pumping music</div></div><div class="prog-intensity"><div class="pip on"></div><div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div></div><div class="prog-arrow">&rarr;</div></div>
+    <div class="prog-item"><div class="prog-num">05</div><div><div class="prog-name">Personal Training</div><div class="prog-desc">One-to-one coaching tailored to your goals</div></div><div class="prog-intensity"><div class="pip on"></div><div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div></div><div class="prog-arrow">&rarr;</div></div>
+    <div class="prog-item"><div class="prog-num">06</div><div><div class="prog-name">Yoga & Recovery</div><div class="prog-desc">Essential mobility work for peak performance</div></div><div class="prog-intensity"><div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><div class="prog-arrow">&rarr;</div></div>
+  </div>
+</section>
+
+<section class="pricing-cta" id="join">
+  <div class="price-card dark">
+    <div class="price-name">Standard</div>
+    <div><span class="price-amount">&pound;29</span><span class="price-per">/month</span></div>
+    <ul class="price-features">
+      <li>Full gym access 24/7</li>
+      <li>All group classes included</li>
+      <li>Locker & changing facilities</li>
+      <li>No joining fee, no contract</li>
+    </ul>
+    <a href="tel:01234567890" class="price-btn outline">Join Today</a>
+  </div>
+  <div class="price-card red">
+    <div class="price-name">Elite</div>
+    <div><span class="price-amount">&pound;59</span><span class="price-per">/month</span></div>
+    <ul class="price-features">
+      <li>Everything in Standard</li>
+      <li>2x PT sessions per month</li>
+      <li>Nutrition coaching</li>
+      <li>Priority class booking</li>
+    </ul>
+    <a href="tel:01234567890" class="price-btn solid">Go Elite</a>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2026 FORGE Gym Rochdale</p>
+  <p>Built by <a href="https://pixelforgestudio.co.uk" style="color:#dc2626;text-decoration:none;">PixelForge Studio</a></p>
+</footer>
+
+<script>
+const canvas=document.getElementById('bg'),ctx=canvas.getContext('2d');
+let W,H;function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
+resize();window.addEventListener('resize',resize);
+class P{constructor(){this.reset();}reset(){this.x=Math.random()*W;this.y=Math.random()*H;this.vx=(Math.random()-.5)*.6;this.vy=(Math.random()-.5)*.6;this.r=Math.random()*2+.5;this.a=Math.random()*.3+.1;this.c=Math.random()>.5?'220,38,38':'249,115,22';}}
+const ps=[];for(let i=0;i<100;i++)ps.push(new P());
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  const t=Date.now()*.0007;
+  [{x:W*.1,y:H*.5,r:400,a:.07},{x:W*.9,y:H*.3,r:300,a:.05}].forEach(o=>{
+    const g=ctx.createRadialGradient(o.x+Math.sin(t)*60,o.y+Math.cos(t*.7)*40,0,o.x+Math.sin(t)*60,o.y+Math.cos(t*.7)*40,o.r);
+    g.addColorStop(0,'rgba(220,38,38,'+o.a+')');g.addColorStop(1,'transparent');
+    ctx.beginPath();ctx.arc(o.x,o.y,o.r,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();
+  });
+  ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W||p.y<0||p.y>H)p.reset();ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(${p.c},${p.a})`;ctx.fill();});
+  requestAnimationFrame(draw);}
+draw();
+
+// 3D TILT on price cards
+document.querySelectorAll('.price-card').forEach(c=>{
+  c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5;const y=(e.clientY-r.top)/r.height-.5;c.style.transform=`perspective(700px) rotateX(${-y*12}deg) rotateY(${x*12}deg) translateY(-8px)`;});
+  c.addEventListener('mouseleave',()=>{c.style.transform='';});
+});
+</script>
+</body>
+</html>

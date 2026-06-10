@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Ember & Stone — Fine Dining</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:#080402;color:#fef3c7;font-family:'Inter',sans-serif;overflow-x:hidden;}
+canvas#bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
+
+/* FULL-BLEED MAGAZINE HERO */
+.hero{min-height:100vh;display:flex;align-items:flex-end;padding:80px 80px 100px;position:relative;z-index:1;overflow:hidden;}
+.hero-bg-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Playfair Display',serif;font-size:clamp(8rem,20vw,18rem);font-weight:900;color:rgba(217,119,6,0.04);white-space:nowrap;letter-spacing:-0.05em;pointer-events:none;z-index:0;animation:bgPulse 4s ease-in-out infinite;}
+.hero-content{position:relative;z-index:2;max-width:700px;}
+.hero-eyebrow{display:flex;align-items:center;gap:16px;margin-bottom:24px;}
+.eyebrow-line{width:40px;height:1px;background:rgba(251,191,36,0.4);}
+.eyebrow-text{font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(251,191,36,0.6);}
+h1{font-family:'Playfair Display',serif;font-size:clamp(4rem,9vw,7rem);font-weight:900;line-height:.95;letter-spacing:-0.03em;margin-bottom:28px;}
+h1 em{font-style:italic;color:#d97706;}
+.hero-desc{font-size:1.05rem;color:rgba(254,243,199,.6);max-width:480px;line-height:1.75;margin-bottom:44px;}
+.hero-actions{display:flex;align-items:center;gap:32px;flex-wrap:wrap;}
+.btn-gold{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#d97706,#f59e0b);color:#080402;padding:16px 36px;border-radius:4px;font-size:0.875rem;font-weight:700;text-decoration:none;letter-spacing:0.05em;text-transform:uppercase;transition:transform .2s,box-shadow .2s;box-shadow:0 0 50px rgba(217,119,6,0.3);}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 0 80px rgba(217,119,6,0.5);}
+.hero-phone{font-family:'Playfair Display',serif;font-size:1.1rem;font-style:italic;color:rgba(251,191,36,0.6);}
+
+/* MARQUEE */
+.marquee{padding:24px 0;overflow:hidden;border-top:1px solid rgba(217,119,6,0.15);border-bottom:1px solid rgba(217,119,6,0.15);position:relative;z-index:1;}
+.marquee-track{display:flex;gap:48px;width:max-content;animation:mq 25s linear infinite;}
+.marquee-item{font-family:'Playfair Display',serif;font-size:0.9rem;font-style:italic;color:rgba(217,119,6,0.4);white-space:nowrap;display:flex;align-items:center;gap:24px;}
+.marquee-item::after{content:'✦';font-style:normal;font-size:0.6rem;color:rgba(217,119,6,0.3);}
+
+/* EDITORIAL MENU GRID */
+.menu-section{padding:120px 80px;position:relative;z-index:1;}
+.menu-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:80px;border-bottom:1px solid rgba(217,119,6,0.12);padding-bottom:40px;}
+.menu-header h2{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:400;font-style:italic;line-height:1.1;}
+.menu-header p{font-size:0.85rem;color:rgba(254,243,199,.4);max-width:240px;line-height:1.6;text-align:right;}
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+.menu-item{padding:36px 0;border-bottom:1px solid rgba(217,119,6,0.08);display:grid;grid-template-columns:1fr auto;align-items:center;gap:20px;transition:background .3s;cursor:default;}
+.menu-item:hover{background:rgba(217,119,6,0.03);}
+.menu-item:nth-child(odd){padding-right:60px;border-right:1px solid rgba(217,119,6,0.08);}
+.menu-item:nth-child(even){padding-left:60px;}
+.menu-item-name{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:500;margin-bottom:6px;}
+.menu-item-desc{font-size:0.8rem;color:rgba(254,243,199,.45);line-height:1.55;}
+.menu-item-price{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:400;color:#d97706;white-space:nowrap;}
+
+/* ATMOSPHERE */
+.atmo{padding:100px 80px;position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.atmo-left h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:400;font-style:italic;line-height:1.2;margin-bottom:24px;}
+.atmo-left p{font-size:0.95rem;color:rgba(254,243,199,.55);line-height:1.75;margin-bottom:36px;}
+.atmo-stats{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+.atmo-stat{border-top:1px solid rgba(217,119,6,0.2);padding-top:20px;}
+.atmo-stat-num{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:700;color:#d97706;}
+.atmo-stat-label{font-size:0.75rem;color:rgba(254,243,199,.4);letter-spacing:0.08em;text-transform:uppercase;margin-top:4px;}
+.atmo-right{display:grid;grid-template-columns:1fr 1fr;gap:16px;height:500px;}
+.atmo-img{border-radius:12px;overflow:hidden;position:relative;}
+.atmo-img.tall{grid-row:span 2;}
+.atmo-img-inner{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem;position:relative;}
+.ai1{background:linear-gradient(135deg,#1a0a04,#2d1408);}
+.ai2{background:linear-gradient(135deg,#0f0604,#1a0e06);}
+.ai3{background:linear-gradient(135deg,#150802,#261008);}
+.atmo-img-label{position:absolute;bottom:16px;left:16px;font-family:'Playfair Display',serif;font-size:0.75rem;font-style:italic;color:rgba(251,191,36,0.6);}
+
+/* BOOKING */
+.booking{position:relative;z-index:1;padding:80px;background:linear-gradient(135deg,rgba(217,119,6,0.08),rgba(239,68,68,0.04));border-top:1px solid rgba(217,119,6,0.12);}
+.booking-inner{display:flex;justify-content:space-between;align-items:center;gap:40px;flex-wrap:wrap;}
+.booking-text h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:400;font-style:italic;}
+.booking-text p{font-size:0.875rem;color:rgba(254,243,199,.45);margin-top:8px;}
+.booking-btns{display:flex;gap:16px;flex-wrap:wrap;}
+.btn-outline-gold{border:1px solid rgba(217,119,6,0.4);color:#fef3c7;padding:14px 30px;border-radius:4px;font-size:0.875rem;text-decoration:none;transition:border-color .2s;letter-spacing:0.03em;}
+.btn-outline-gold:hover{border-color:rgba(217,119,6,0.8);}
+
+footer{padding:32px 80px;border-top:1px solid rgba(217,119,6,0.08);display:flex;justify-content:space-between;align-items:center;}
+footer p{font-size:0.8rem;color:rgba(254,243,199,.2);}
+
+@keyframes bgPulse{0%,100%{opacity:.8}50%{opacity:1}}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(max-width:900px){.hero{padding:80px 24px;}.menu-section,.atmo,.booking,footer{padding:80px 24px;}.menu-grid,.atmo{grid-template-columns:1fr;}.atmo-right{height:300px;}.menu-item:nth-child(odd){padding-right:0;border-right:none;}.menu-item:nth-child(even){padding-left:0;}}
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+
+<section class="hero">
+  <div class="hero-bg-text">EMBER</div>
+  <div class="hero-content">
+    <div class="hero-eyebrow"><span class="eyebrow-line"></span><span class="eyebrow-text">Fine Dining · Rochdale</span></div>
+    <h1>Where Fire<br />Meets <em>Flavour</em></h1>
+    <p class="hero-desc">An intimate dining experience where exceptional ingredients meet artistry. Reservations recommended — tables fill fast.</p>
+    <div class="hero-actions">
+      <a href="#booking" class="btn-gold">Reserve a Table</a>
+      <span class="hero-phone">or call 01234 567 890</span>
+    </div>
+  </div>
+</section>
+
+<div class="marquee">
+  <div class="marquee-track">
+    <span class="marquee-item">Fine Dining</span><span class="marquee-item">Private Events</span><span class="marquee-item">Wine Pairing</span><span class="marquee-item">Chef's Table</span><span class="marquee-item">Seasonal Menu</span><span class="marquee-item">Local Ingredients</span><span class="marquee-item">Sunday Roast</span><span class="marquee-item">Tasting Menu</span>
+    <span class="marquee-item">Fine Dining</span><span class="marquee-item">Private Events</span><span class="marquee-item">Wine Pairing</span><span class="marquee-item">Chef's Table</span><span class="marquee-item">Seasonal Menu</span><span class="marquee-item">Local Ingredients</span><span class="marquee-item">Sunday Roast</span><span class="marquee-item">Tasting Menu</span>
+  </div>
+</div>
+
+<section class="menu-section" id="menu">
+  <div class="menu-header">
+    <h2>Tonight's Menu</h2>
+    <p>Seasonal ingredients sourced from local farms. Menu changes weekly.</p>
+  </div>
+  <div class="menu-grid">
+    <div class="menu-item"><div><div class="menu-item-name">Dry-Aged Ribeye</div><div class="menu-item-desc">28-day aged prime beef, truffle butter, triple-cooked chips</div></div><div class="menu-item-price">£32</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Lobster Thermidor</div><div class="menu-item-desc">Half lobster, brandy cream, gratin, saffron rice</div></div><div class="menu-item-price">£38</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Wild Mushroom Risotto</div><div class="menu-item-desc">Truffle oil, aged parmesan, herb oil — vegetarian</div></div><div class="menu-item-price">£18</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Pan-Seared Duck</div><div class="menu-item-desc">Confit leg, cherry jus, celeriac puree, watercress</div></div><div class="menu-item-price">£26</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Sticky Toffee Pudding</div><div class="menu-item-desc">Our legendary recipe, toffee sauce, clotted cream ice cream</div></div><div class="menu-item-price">£8</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Dark Chocolate Fondant</div><div class="menu-item-desc">Salted caramel centre, honeycomb, vanilla bean ice cream</div></div><div class="menu-item-price">£9</div></div>
+  </div>
+</section>
+
+<section class="atmo">
+  <div class="atmo-left">
+    <h2>A Setting as Memorable as the Food</h2>
+    <p>Candlelit tables, exposed stone walls, and an atmosphere that makes every occasion feel special. Whether it's date night or a corporate dinner — we set the scene.</p>
+    <a href="#booking" class="btn-gold" style="display:inline-flex;">Book Your Experience &rarr;</a>
+    <div class="atmo-stats" style="margin-top:48px;">
+      <div class="atmo-stat"><div class="atmo-stat-num">4.9★</div><div class="atmo-stat-label">Google Rating</div></div>
+      <div class="atmo-stat"><div class="atmo-stat-num">8yr</div><div class="atmo-stat-label">Est. 2016</div></div>
+      <div class="atmo-stat"><div class="atmo-stat-num">50</div><div class="atmo-stat-label">Covers</div></div>
+      <div class="atmo-stat"><div class="atmo-stat-num">1</div><div class="atmo-stat-label">Private Dining Room</div></div>
+    </div>
+  </div>
+  <div class="atmo-right">
+    <div class="atmo-img tall ai1"><div class="atmo-img-inner">🕯️</div><div class="atmo-img-label">The Main Room</div></div>
+    <div class="atmo-img ai2"><div class="atmo-img-inner">🍷</div><div class="atmo-img-label">Wine Cellar</div></div>
+    <div class="atmo-img ai3"><div class="atmo-img-inner">👨‍🍳</div><div class="atmo-img-label">Open Kitchen</div></div>
+  </div>
+</section>
+
+<section class="booking" id="booking">
+  <div class="booking-inner">
+    <div class="booking-text">
+      <h2>Reserve Your Table</h2>
+      <p>Available Tuesday–Sunday. Private dining available 7 days.</p>
+    </div>
+    <div class="booking-btns">
+      <a href="tel:01234567890" class="btn-gold">Call to Book</a>
+      <a href="#" class="btn-outline-gold">Email Us</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2026 Ember & Stone Restaurant, Rochdale</p>
+  <p>Built by <a href="https://pixelforgestudio.co.uk" style="color:#d97706;text-decoration:none;">PixelForge Studio</a></p>
+</footer>
+
+<script>
+const canvas=document.getElementById('bg'),ctx=canvas.getContext('2d');
+let W,H;function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
+resize();window.addEventListener('resize',resize);
+class E{constructor(){this.reset();}reset(){this.x=Math.random()*W;this.y=H+10;this.vx=(Math.random()-.5)*.8;this.vy=-(Math.random()*1.2+.3);this.life=1;this.decay=Math.random()*.005+.002;this.r=Math.random()*1.8+.4;this.c=Math.random()>.5?'217,119,6':'251,191,36';}}
+const em=[];for(let i=0;i<60;i++){const e=new E();e.y=Math.random()*H;em.push(e);}
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  const t=Date.now()*.0006;
+  [{x:W*.4,y:H*.7,r:400,a:.07},{x:W*.8,y:H*.3,r:300,a:.05}].forEach(o=>{
+    const g=ctx.createRadialGradient(o.x,o.y,0,o.x,o.y,o.r);g.addColorStop(0,`rgba(${o.c||'217,119,6'},${o.a})`);g.addColorStop(1,'transparent');
+    ctx.beginPath();ctx.arc(o.x,o.y,o.r,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();
+  });
+  em.forEach(e=>{e.x+=e.vx+Math.sin(Date.now()*.0008)*.3;e.y+=e.vy;e.life-=e.decay;if(e.life<=0)e.reset();ctx.beginPath();ctx.arc(e.x,e.y,e.r,0,Math.PI*2);ctx.fillStyle=`rgba(${e.c},${e.life*.5})`;ctx.fill();});
+  requestAnimationFrame(draw);}
+draw();
+
+// 3D TILT on atmo images
+document.querySelectorAll('.atmo-img').forEach(c=>{
+  c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5;const y=(e.clientY-r.top)/r.height-.5;c.style.transform=`perspective(700px) rotateX(${-y*12}deg) rotateY(${x*12}deg) scale(1.03)`;});
+  c.addEventListener('mouseleave',()=>{c.style.transform='';});
+});
+document.querySelectorAll('.menu-item').forEach(c=>{
+  c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5;c.style.transform=`perspective(800px) rotateY(${x*6}deg)`;});
+  c.addEventListener('mouseleave',()=>{c.style.transform='';});
+});
+</script>
+</body>
+</html>

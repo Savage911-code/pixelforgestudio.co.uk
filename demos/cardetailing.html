@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Apex Detail — Premium Car Detailing</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:#fff;color:#0a0a0f;font-family:'Space Grotesk',sans-serif;overflow-x:hidden;}
+
+/* MINIMAL APPLE-STYLE NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 80px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px);background:rgba(255,255,255,0.85);border-bottom:1px solid rgba(0,0,0,0.06);}
+.logo{font-size:1.1rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#0a0a0f;}
+.logo span{color:#3b82f6;}
+.nav-links{display:flex;gap:32px;list-style:none;font-size:0.85rem;color:rgba(10,10,15,.5);}
+.nav-links a{text-decoration:none;color:inherit;transition:color .2s;}
+.nav-links a:hover{color:#0a0a0f;}
+.nav-cta{background:#0a0a0f;color:#fff;padding:10px 22px;border-radius:100px;font-size:0.8rem;font-weight:700;text-decoration:none;letter-spacing:0.05em;transition:background .2s;}
+.nav-cta:hover{background:#3b82f6;}
+
+/* CLEAN HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:140px 80px 100px;background:#fff;position:relative;overflow:hidden;}
+.hero-circle{position:absolute;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,0.06) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
+.hero-circle2{position:absolute;width:500px;height:500px;border-radius:50%;border:1px solid rgba(59,130,246,0.08);top:50%;left:50%;transform:translate(-50%,-50%);animation:circlePulse 4s ease-in-out infinite;}
+.hero-circle3{position:absolute;width:300px;height:300px;border-radius:50%;border:1px solid rgba(59,130,246,0.12);top:50%;left:50%;transform:translate(-50%,-50%);animation:circlePulse 4s ease-in-out infinite .5s;}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:#f0f9ff;border:1px solid #bae6fd;border-radius:100px;padding:6px 16px;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;color:#0284c7;margin-bottom:32px;position:relative;}
+.hero-tag-dot{width:6px;height:6px;border-radius:50%;background:#0ea5e9;box-shadow:0 0 8px rgba(14,165,233,0.6);animation:pulse 2s infinite;}
+h1{font-size:clamp(3.5rem,9vw,7rem);font-weight:900;line-height:1.0;letter-spacing:-0.05em;margin-bottom:24px;color:#0a0a0f;position:relative;}
+.blue{color:#3b82f6;}
+.hero-sub{font-size:1.1rem;color:rgba(10,10,15,.5);max-width:520px;margin:0 auto 50px;line-height:1.7;font-weight:400;position:relative;}
+.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;position:relative;}
+.btn-dark{display:inline-flex;align-items:center;gap:10px;background:#0a0a0f;color:#fff;padding:16px 36px;border-radius:100px;font-size:0.9rem;font-weight:700;text-decoration:none;transition:background .2s,transform .2s;}
+.btn-dark:hover{background:#3b82f6;transform:scale(1.03);}
+.btn-light{display:inline-flex;align-items:center;gap:10px;background:#f8fafc;border:1px solid #e2e8f0;color:#0a0a0f;padding:16px 36px;border-radius:100px;font-size:0.9rem;font-weight:600;text-decoration:none;transition:border-color .2s,transform .2s;}
+.btn-light:hover{border-color:#3b82f6;color:#3b82f6;transform:scale(1.03);}
+
+/* FEATURE STRIP */
+.features{background:#f8fafc;padding:60px 80px;display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0;}
+.feature-item{padding:0 40px;border-right:1px solid #e2e8f0;text-align:center;}
+.feature-item:last-child{border-right:none;}
+.feature-icon{font-size:2rem;margin-bottom:12px;display:block;}
+.feature-title{font-size:0.85rem;font-weight:700;color:#0a0a0f;margin-bottom:6px;}
+.feature-desc{font-size:0.775rem;color:rgba(10,10,15,.4);line-height:1.5;}
+
+/* PACKAGES — APPLE STYLE */
+.packages{padding:120px 80px;background:#fff;}
+.pkg-header{text-align:center;margin-bottom:80px;}
+.pkg-header h2{font-size:clamp(2.5rem,5vw,4rem);font-weight:800;letter-spacing:-0.04em;color:#0a0a0f;margin-bottom:16px;}
+.pkg-header p{font-size:1rem;color:rgba(10,10,15,.4);max-width:400px;margin:0 auto;}
+.pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1000px;margin:0 auto;}
+.pkg-card{border-radius:20px;padding:44px 36px;display:flex;flex-direction:column;gap:24px;transition:transform .3s,box-shadow .3s;}
+.pkg-card.light{background:#f8fafc;border:1px solid #e2e8f0;}
+.pkg-card.light:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,0.08);}
+.pkg-card.dark-card{background:#0a0a0f;color:#fff;}
+.pkg-card.dark-card:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(10,10,15,0.3);}
+.pkg-card.blue-card{background:linear-gradient(135deg,#3b82f6,#0ea5e9);color:#fff;}
+.pkg-card.blue-card:hover{transform:translateY(-8px);box-shadow:0 24px 80px rgba(59,130,246,0.4);}
+.pkg-name{font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;opacity:.5;}
+.pkg-price{font-size:3.5rem;font-weight:900;line-height:1;letter-spacing:-0.03em;}
+.pkg-price sup{font-size:1.4rem;vertical-align:top;margin-top:8px;display:inline-block;}
+.pkg-desc{font-size:0.875rem;opacity:.55;line-height:1.6;}
+.pkg-divider{border:none;border-top:1px solid rgba(0,0,0,0.08);margin:0;}
+.pkg-card.dark-card .pkg-divider,.pkg-card.blue-card .pkg-divider{border-color:rgba(255,255,255,0.12);}
+.pkg-features{list-style:none;display:flex;flex-direction:column;gap:12px;flex:1;}
+.pkg-features li{font-size:0.875rem;opacity:.65;display:flex;align-items:flex-start;gap:10px;line-height:1.4;}
+.pkg-features li::before{content:'✓';opacity:1;font-weight:700;color:inherit;flex-shrink:0;}
+.pkg-btn{display:block;text-align:center;padding:14px;border-radius:12px;font-size:0.875rem;font-weight:700;text-decoration:none;letter-spacing:0.03em;transition:transform .2s,opacity .2s;}
+.pkg-btn-dark{background:#0a0a0f;color:#fff;}
+.pkg-btn-dark:hover{background:#3b82f6;}
+.pkg-btn-white{background:#fff;color:#0a0a0f;}
+.pkg-btn-white:hover{opacity:.9;}
+.pkg-btn-outline{border:1px solid #e2e8f0;color:#0a0a0f;}
+.pkg-btn-outline:hover{border-color:#3b82f6;color:#3b82f6;}
+
+/* TESTIMONIALS */
+.testimonials{background:#f8fafc;padding:100px 80px;border-top:1px solid #e2e8f0;}
+.t-header{text-align:center;margin-bottom:60px;}
+.t-header h2{font-size:clamp(2rem,4vw,3rem);font-weight:800;letter-spacing:-0.04em;color:#0a0a0f;}
+.t-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1000px;margin:0 auto;}
+.t-card{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:32px;transition:transform .3s,box-shadow .3s;}
+.t-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.06);}
+.t-stars{color:#f59e0b;font-size:0.9rem;letter-spacing:2px;margin-bottom:16px;}
+.t-text{font-size:0.875rem;color:rgba(10,10,15,.55);line-height:1.7;font-style:italic;margin-bottom:20px;}
+.t-name{font-size:0.875rem;font-weight:700;color:#0a0a0f;}
+.t-role{font-size:0.775rem;color:rgba(10,10,15,.35);margin-top:2px;}
+
+/* CTA */
+.cta-section{padding:100px 80px;background:#0a0a0f;text-align:center;}
+.cta-section h2{font-size:clamp(2.5rem,5vw,4rem);font-weight:800;letter-spacing:-0.04em;color:#fff;margin-bottom:16px;}
+.cta-section p{font-size:1rem;color:rgba(255,255,255,.4);max-width:440px;margin:0 auto 44px;line-height:1.7;}
+
+footer{padding:32px 80px;background:#0a0a0f;border-top:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-between;align-items:center;}
+footer p{font-size:0.8rem;color:rgba(255,255,255,.2);}
+
+@keyframes circlePulse{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:1}50%{transform:translate(-50%,-50%) scale(1.05);opacity:.6}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@media(max-width:900px){nav{padding:16px 20px;}.nav-links{display:none;}.hero,.packages,.testimonials,.cta-section,footer{padding-left:24px;padding-right:24px;}.features,.pkg-grid,.t-grid{grid-template-columns:1fr;}.feature-item{border-right:none;border-bottom:1px solid #e2e8f0;padding:24px 0;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">APEX<span>DETAIL</span></div>
+  <ul class="nav-links">
+    <li><a href="#packages">Packages</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#book">Contact</a></li>
+  </ul>
+  <a href="#book" class="nav-cta">Book Now</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-circle"></div>
+  <div class="hero-circle2"></div>
+  <div class="hero-circle3"></div>
+  <div class="hero-tag"><span class="hero-tag-dot"></span>Rochdale's Premium Detailers</div>
+  <h1>Your Car.<br /><span class="blue">Perfected.</span></h1>
+  <p class="hero-sub">Professional car detailing that restores, protects and transforms your vehicle. From wash & wax to ceramic coating.</p>
+  <div class="hero-btns">
+    <a href="#packages" class="btn-dark">View Packages &rarr;</a>
+    <a href="#book" class="btn-light">Book a Detail</a>
+  </div>
+</section>
+
+<div class="features">
+  <div class="feature-item"><span class="feature-icon">🚗</span><div class="feature-title">Mobile Service</div><div class="feature-desc">We come to you across Rochdale & Manchester</div></div>
+  <div class="feature-item"><span class="feature-icon">⭐</span><div class="feature-title">5-Star Rated</div><div class="feature-desc">200+ five-star reviews from happy customers</div></div>
+  <div class="feature-item"><span class="feature-icon">🛡️</span><div class="feature-title">Guaranteed Results</div><div class="feature-desc">Not happy? We'll come back free of charge</div></div>
+  <div class="feature-item"><span class="feature-icon">⚡</span><div class="feature-title">Same Day Available</div><div class="feature-desc">Book today, detailed today — subject to availability</div></div>
+</div>
+
+<section class="packages" id="packages">
+  <div class="pkg-header">
+    <h2>Our Packages</h2>
+    <p>Simple, transparent pricing. No hidden extras.</p>
+  </div>
+  <div class="pkg-grid">
+    <div class="pkg-card light">
+      <div class="pkg-name">Essential</div>
+      <div class="pkg-price"><sup>&pound;</sup>79</div>
+      <div class="pkg-desc">The perfect refresh for your vehicle.</div>
+      <hr class="pkg-divider"/>
+      <ul class="pkg-features">
+        <li>Exterior hand wash & dry</li>
+        <li>Wheel clean & tyre dressing</li>
+        <li>Interior vacuum</li>
+        <li>Dashboard wipe</li>
+        <li>Window clean</li>
+      </ul>
+      <a href="#book" class="pkg-btn pkg-btn-outline">Book Now</a>
+    </div>
+    <div class="pkg-card blue-card">
+      <div class="pkg-name">Signature — Most Popular</div>
+      <div class="pkg-price"><sup>&pound;</sup>199</div>
+      <div class="pkg-desc">Full inside and out transformation.</div>
+      <hr class="pkg-divider"/>
+      <ul class="pkg-features">
+        <li>Everything in Essential</li>
+        <li>Machine polish & wax</li>
+        <li>Full interior deep clean</li>
+        <li>Leather conditioning</li>
+        <li>Engine bay clean</li>
+        <li>Paint sealant applied</li>
+      </ul>
+      <a href="#book" class="pkg-btn pkg-btn-white">Book Now</a>
+    </div>
+    <div class="pkg-card dark-card">
+      <div class="pkg-name">Elite</div>
+      <div class="pkg-price"><sup>&pound;</sup>499</div>
+      <div class="pkg-desc">The ultimate in paint protection.</div>
+      <hr class="pkg-divider"/>
+      <ul class="pkg-features">
+        <li>Everything in Signature</li>
+        <li>Full paint correction</li>
+        <li>Ceramic coating applied</li>
+        <li>5-year protection guarantee</li>
+        <li>Free annual maintenance wash</li>
+      </ul>
+      <a href="#book" class="pkg-btn pkg-btn-dark" style="background:#3b82f6;">Book Now</a>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials" id="testimonials">
+  <div class="t-header"><h2>What Our Customers Say</h2></div>
+  <div class="t-grid">
+    <div class="t-card"><div class="t-stars">★★★★★</div><p class="t-text">"Absolutely incredible result on my BMW. Looks better than when I bought it. Will never go anywhere else."</p><div class="t-name">Mark T.</div><div class="t-role">BMW 3 Series Owner</div></div>
+    <div class="t-card"><div class="t-stars">★★★★★</div><p class="t-text">"Ceramic coating is flawless. Worth every penny. The team were professional and the finish is outstanding."</p><div class="t-name">Sarah J.</div><div class="t-role">Range Rover Owner</div></div>
+    <div class="t-card"><div class="t-stars">★★★★★</div><p class="t-text">"Used Apex for my Mercedes before selling it. Valuation came in £800 higher than expected. Brilliant."</p><div class="t-name">Dave R.</div><div class="t-role">Mercedes C-Class Owner</div></div>
+  </div>
+</section>
+
+<section class="cta-section" id="book">
+  <h2>Ready to Book?</h2>
+  <p>Call us, WhatsApp us, or email — we'll get you booked in fast. Mobile service available across Rochdale and Manchester.</p>
+  <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+    <a href="tel:01234567890" class="btn-dark" style="background:#3b82f6;">Call Now &rarr;</a>
+    <a href="#" class="btn-light" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);color:#fff;">WhatsApp Us</a>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2026 Apex Detail, Rochdale</p>
+  <p>Built by <a href="https://pixelforgestudio.co.uk" style="color:#3b82f6;text-decoration:none;">PixelForge Studio</a></p>
+</footer>
+
+<script>
+// 3D TILT on all cards
+document.querySelectorAll('.pkg-card,.t-card').forEach(c=>{
+  c.addEventListener('mousemove',e=>{
+    const r=c.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-.5;
+    const y=(e.clientY-r.top)/r.height-.5;
+    c.style.transform=`perspective(700px) rotateX(${-y*10}deg) rotateY(${x*10}deg) translateY(-6px)`;
+  });
+  c.addEventListener('mouseleave',()=>{c.style.transform='';});
+});
+// smooth parallax circles
+window.addEventListener('scroll',()=>{
+  const y=window.scrollY;
+  document.querySelector('.hero-circle').style.transform=`translate(-50%,-50%) translateY(${y*.1}px)`;
+});
+</script>
+</body>
+</html>

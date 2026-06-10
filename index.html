@@ -371,10 +371,15 @@
       border: 1px solid rgba(255,255,255,0.07);
       position: relative;
       cursor: pointer;
+      display: block;
+      text-decoration: none;
+      color: inherit;
       transition: transform .4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow .4s;
     }
     .showcase-item:hover { transform: scale(1.02) rotateY(-2deg); box-shadow: 0 40px 100px rgba(0,0,0,0.5); }
     .showcase-item.tall { grid-row: span 2; }
+    .showcase-item.wide { grid-column: span 2; }
+    .showcase-item.wide .showcase-mock { height: 200px; }
     .showcase-mock {
       width: 100%;
       height: 280px;
@@ -789,56 +794,80 @@
   <div class="showcase-inner">
     <div class="section-header reveal">
       <div class="section-label">Our Work</div>
-      <h2>Designs That Speak<br />for Themselves</h2>
-      <p class="section-desc">Recent projects across SaaS, e-commerce, and brand identity.</p>
+      <h2>Live Demos.<br />Real Builds.</h2>
+      <p class="section-desc">Click any project to explore the full live experience &mdash; built, animated, and ready to ship.</p>
     </div>
     <div class="showcase-grid reveal">
 
-      <div class="showcase-item tall">
-        <div class="showcase-mock" style="background:linear-gradient(135deg,#0f0f1a,#1a0a2e);">
-          <div style="position:absolute;inset:0;padding:28px;display:flex;flex-direction:column;gap:12px;">
-            <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-family:'Space Grotesk',sans-serif;font-weight:700;color:#a78bfa;font-size:0.9rem;">Stackly Dashboard</span><div style="display:flex;gap:5px;"><div style="width:9px;height:9px;border-radius:50%;background:#ff5f57;"></div><div style="width:9px;height:9px;border-radius:50%;background:#febc2e;"></div><div style="width:9px;height:9px;border-radius:50%;background:#28c840;"></div></div></div>
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;"><div style="background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.2);border-radius:8px;padding:12px;"><div style="font-size:0.6rem;color:#64748b;margin-bottom:2px;">Revenue</div><div style="font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:700;">£48.2k</div><div style="font-size:0.55rem;color:#10b981;">+12.4%</div></div><div style="background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.15);border-radius:8px;padding:12px;"><div style="font-size:0.6rem;color:#64748b;margin-bottom:2px;">Users</div><div style="font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:700;">3,841</div><div style="font-size:0.55rem;color:#10b981;">+8.1%</div></div><div style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.12);border-radius:8px;padding:12px;"><div style="font-size:0.6rem;color:#64748b;margin-bottom:2px;">Churn</div><div style="font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:700;">1.8%</div><div style="font-size:0.55rem;color:#10b981;">-0.3%</div></div></div>
-            <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:8px;height:120px;padding:16px;"><div style="display:flex;align-items:flex-end;gap:4px;height:100%;"><div style="flex:1;background:rgba(139,92,246,0.3);border-radius:3px;height:40%;"></div><div style="flex:1;background:rgba(139,92,246,0.4);border-radius:3px;height:60%;"></div><div style="flex:1;background:rgba(139,92,246,0.5);border-radius:3px;height:45%;"></div><div style="flex:1;background:rgba(139,92,246,0.6);border-radius:3px;height:75%;"></div><div style="flex:1;background:rgba(139,92,246,0.7);border-radius:3px;height:55%;"></div><div style="flex:1;background:#8b5cf6;border-radius:3px;height:100%;box-shadow:0 0 10px rgba(139,92,246,0.6);"></div><div style="flex:1;background:rgba(139,92,246,0.5);border-radius:3px;height:65%;"></div></div></div>
-            <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:8px;padding:14px;display:flex;gap:10px;align-items:center;"><div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#8b5cf6,#06b6d4);"></div><div><div style="font-size:0.65rem;color:#64748b;">Active users today</div><div style="font-size:0.8rem;font-weight:600;">1,284 sessions</div></div><div style="margin-left:auto;font-size:0.7rem;color:#10b981;">Live</div></div>
+      <a href="demos/immersive-3d.html" target="_blank" rel="noopener" class="showcase-item tall">
+        <div class="showcase-mock" style="background:radial-gradient(circle at 50% 40%,#1a0a2e 0%,#04040d 70%);">
+          <div style="position:absolute;inset:0;">
+            <div style="position:absolute;top:18%;left:22%;width:3px;height:3px;border-radius:50%;background:#fff;box-shadow:0 0 6px #fff;"></div>
+            <div style="position:absolute;top:32%;left:68%;width:2px;height:2px;border-radius:50%;background:#a78bfa;box-shadow:0 0 6px #a78bfa;"></div>
+            <div style="position:absolute;top:60%;left:35%;width:2px;height:2px;border-radius:50%;background:#06b6d4;box-shadow:0 0 8px #06b6d4;"></div>
+            <div style="position:absolute;top:75%;left:78%;width:3px;height:3px;border-radius:50%;background:#fff;box-shadow:0 0 6px #fff;"></div>
+            <div style="position:absolute;top:45%;left:50%;width:1px;height:1px;border-radius:50%;background:#fff;box-shadow:0 0 4px #fff;"></div>
+            <div style="position:absolute;inset:0;border-radius:50%;width:220px;height:220px;margin:auto;border:1px solid rgba(139,92,246,0.35);box-shadow:0 0 60px rgba(139,92,246,0.25), inset 0 0 60px rgba(6,182,212,0.1);"></div>
+            <div style="position:absolute;inset:0;border-radius:50%;width:340px;height:340px;margin:auto;border:1px solid rgba(6,182,212,0.15);"></div>
+          </div>
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;">
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:2.2rem;font-weight:900;letter-spacing:0.3em;background:linear-gradient(135deg,#ff0080,#7c3aed,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">VOID</div>
+            <div style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:#64748b;">Scroll-driven 3D journey</div>
           </div>
         </div>
         <div class="showcase-overlay">
-          <span class="overlay-tag">SaaS Dashboard</span>
-          <div class="overlay-title">Stackly Analytics UI</div>
-          <div class="overlay-sub">Figma + React &middot; 2025</div>
+          <span class="overlay-tag">Immersive 3D Experience</span>
+          <div class="overlay-title">VOID &mdash; Scroll Journey</div>
+          <div class="overlay-sub">Canvas 3D + scroll animation</div>
         </div>
-      </div>
+      </a>
 
-      <div class="showcase-item">
-        <div class="showcase-mock" style="background:linear-gradient(135deg,#0a1628,#0d2040);">
+      <a href="demos/cardetailing.html" target="_blank" rel="noopener" class="showcase-item">
+        <div class="showcase-mock" style="background:linear-gradient(135deg,#0a0a0f,#0d1626);">
           <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;">
-            <div style="width:56px;height:56px;background:linear-gradient(135deg,#06b6d4,#3b82f6);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 0 30px rgba(6,182,212,0.5);">🌿</div>
-            <div style="font-family:'Space Grotesk',sans-serif;font-size:1.2rem;font-weight:700;">BrightLeaf</div>
-            <div style="font-size:0.7rem;color:#64748b;text-align:center;max-width:140px;">Sustainable wellness brand identity</div>
-            <div style="display:flex;gap:8px;"><div style="width:22px;height:22px;border-radius:50%;background:#06b6d4;"></div><div style="width:22px;height:22px;border-radius:50%;background:#0f766e;"></div><div style="width:22px;height:22px;border-radius:50%;background:#f0fdf4;"></div><div style="width:22px;height:22px;border-radius:50%;background:#1e293b;"></div></div>
+            <div style="width:56px;height:56px;background:linear-gradient(135deg,#3b82f6,#0ea5e9);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 0 30px rgba(59,130,246,0.5);">🚗</div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:1.2rem;font-weight:700;letter-spacing:0.05em;">Apex Detail</div>
+            <div style="font-size:0.7rem;color:#64748b;text-align:center;max-width:160px;">Premium car detailing &mdash; dark, sleek, automotive</div>
           </div>
         </div>
         <div class="showcase-overlay">
-          <span class="overlay-tag">Brand Identity</span>
-          <div class="overlay-title">BrightLeaf Rebrand</div>
-          <div class="overlay-sub">Logo + Guidelines &middot; 2025</div>
+          <span class="overlay-tag">Local Service</span>
+          <div class="overlay-title">Apex Detail</div>
+          <div class="overlay-sub">Premium Car Detailing</div>
         </div>
-      </div>
+      </a>
 
-      <div class="showcase-item">
-        <div class="showcase-mock" style="background:linear-gradient(135deg,#1a0505,#2d0a0a);">
-          <div style="position:absolute;inset:0;padding:20px;display:flex;flex-direction:column;gap:8px;">
-            <div style="font-family:'Space Grotesk',sans-serif;font-size:0.85rem;font-weight:700;color:#fca5a5;">Novaflow</div>
-            <div style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:12px;flex:1;display:flex;flex-direction:column;justify-content:space-between;"><div style="font-size:0.58rem;color:#94a3b8;">Conversion Rate</div><div style="font-family:'Space Grotesk',sans-serif;font-size:1.6rem;font-weight:700;">6.4%</div><div style="height:28px;display:flex;align-items:flex-end;gap:3px;"><div style="flex:1;background:rgba(239,68,68,0.3);border-radius:2px;height:40%;"></div><div style="flex:1;background:rgba(239,68,68,0.4);border-radius:2px;height:55%;"></div><div style="flex:1;background:rgba(239,68,68,0.5);border-radius:2px;height:45%;"></div><div style="flex:1;background:rgba(239,68,68,0.7);border-radius:2px;height:70%;"></div><div style="flex:1;background:#ef4444;border-radius:2px;height:100%;box-shadow:0 0 6px rgba(239,68,68,0.5);"></div></div></div>
+      <a href="demos/restaurant.html" target="_blank" rel="noopener" class="showcase-item">
+        <div class="showcase-mock" style="background:linear-gradient(135deg,#1a0a04,#2d1408);">
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;">
+            <div style="width:56px;height:56px;background:linear-gradient(135deg,#d97706,#f59e0b);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 0 30px rgba(217,119,6,0.5);">🍷</div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:1.2rem;font-weight:700;letter-spacing:0.05em;">Ember &amp; Stone</div>
+            <div style="font-size:0.7rem;color:#64748b;text-align:center;max-width:160px;">Fine dining &mdash; warm, moody, elegant</div>
           </div>
         </div>
         <div class="showcase-overlay">
-          <span class="overlay-tag">Landing Page</span>
-          <div class="overlay-title">Novaflow Homepage</div>
-          <div class="overlay-sub">3x CVR lift &middot; 2025</div>
+          <span class="overlay-tag">Hospitality</span>
+          <div class="overlay-title">Ember &amp; Stone</div>
+          <div class="overlay-sub">Fine Dining Restaurant</div>
         </div>
-      </div>
+      </a>
+
+      <a href="demos/gym.html" target="_blank" rel="noopener" class="showcase-item wide">
+        <div class="showcase-mock" style="background:linear-gradient(135deg,#060406,#1a0606);">
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:24px;">
+            <div style="width:56px;height:56px;background:linear-gradient(135deg,#dc2626,#f97316);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 0 30px rgba(220,38,38,0.5);">🏋️</div>
+            <div>
+              <div style="font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:900;letter-spacing:0.1em;">FORGE</div>
+              <div style="font-size:0.75rem;color:#64748b;">High-energy gym &amp; fitness brand</div>
+            </div>
+          </div>
+        </div>
+        <div class="showcase-overlay">
+          <span class="overlay-tag">Fitness</span>
+          <div class="overlay-title">FORGE Gym</div>
+          <div class="overlay-sub">Bold, high-energy brand site</div>
+        </div>
+      </a>
 
     </div>
   </div>
@@ -903,27 +932,28 @@
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
+<!-- WHY PIXELFORGE -->
 <section class="testimonials" id="testimonials">
   <div class="section-header reveal">
-    <div class="section-label">Social Proof</div>
-    <h2>Clients Who Got Results</h2>
+    <div class="section-label">Why PixelForge</div>
+    <h2>Built Different.<br />Built to Convert.</h2>
+    <p class="section-desc">No templates, no page builders &mdash; every site is hand-crafted, fast, and designed to turn visitors into customers.</p>
   </div>
   <div class="testimonials-grid reveal">
     <div class="testimonial-card">
-      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-      <p class="testimonial-text">"PixelForge turned our clunky MVP into something investors actually got excited about. Funded 3 weeks after the redesign."</p>
-      <div class="testimonial-author"><div class="avatar" style="background:linear-gradient(135deg,#8b5cf6,#06b6d4)">JM</div><div><div class="author-name">James M.</div><div class="author-role">Founder, Stackly</div></div></div>
+      <div class="avatar" style="background:linear-gradient(135deg,#8b5cf6,#06b6d4);margin-bottom:18px;">⚡</div>
+      <div class="author-name" style="font-size:1.05rem;margin-bottom:8px;">Hand-Coded, Not Templated</div>
+      <p class="testimonial-text" style="font-style:normal;margin-bottom:0;">Every project is built from scratch with custom animation and interaction &mdash; check the live demos above, all running in real time.</p>
     </div>
     <div class="testimonial-card">
-      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-      <p class="testimonial-text">"Our landing page conversion went from 1.8% to 6.4% after the redesign. That's a 3x lift. Best money I've ever spent."</p>
-      <div class="testimonial-author"><div class="avatar" style="background:linear-gradient(135deg,#06b6d4,#3b82f6)">SK</div><div><div class="author-name">Sara K.</div><div class="author-role">CEO, BrightLeaf</div></div></div>
+      <div class="avatar" style="background:linear-gradient(135deg,#06b6d4,#3b82f6);margin-bottom:18px;">🚀</div>
+      <div class="author-name" style="font-size:1.05rem;margin-bottom:8px;">Fast Turnaround</div>
+      <p class="testimonial-text" style="font-style:normal;margin-bottom:0;">Most landing pages and brand sites are designed and shipped within 1&ndash;2 weeks, with revisions included.</p>
     </div>
     <div class="testimonial-card">
-      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-      <p class="testimonial-text">"Fast, communicative, stunning designs on first draft. I've worked with 5 agencies — nobody comes close."</p>
-      <div class="testimonial-author"><div class="avatar" style="background:linear-gradient(135deg,#f59e0b,#ef4444)">DT</div><div><div class="author-name">David T.</div><div class="author-role">Product Lead, Novaflow</div></div></div>
+      <div class="avatar" style="background:linear-gradient(135deg,#f59e0b,#ef4444);margin-bottom:18px;">🤝</div>
+      <div class="author-name" style="font-size:1.05rem;margin-bottom:8px;">Direct, No Middlemen</div>
+      <p class="testimonial-text" style="font-style:normal;margin-bottom:0;">You work directly with the person building your site &mdash; clear communication, no account managers, no jargon.</p>
     </div>
   </div>
 </section>
