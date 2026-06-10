@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Crown & Co — Premium Barbershop</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:#070807;color:#f5f0e6;font-family:'Inter',sans-serif;overflow-x:hidden;}
+canvas#bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
+::selection{background:rgba(201,162,39,.3);}
+
+/* NAV */
+header{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:28px 60px;mix-blend-mode:difference;}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:0.15em;}
+.logo span{color:#c9a227;}
+nav{display:flex;gap:36px;}
+nav a{color:#f5f0e6;text-decoration:none;font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;opacity:.75;transition:opacity .2s;}
+nav a:hover{opacity:1;}
+.nav-book{border:1px solid rgba(245,240,230,.3);padding:8px 20px;border-radius:2px;}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding:0 60px;position:relative;z-index:1;overflow:hidden;}
+.hero-bg-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Bebas Neue',sans-serif;font-size:clamp(10rem,28vw,26rem);color:rgba(201,162,39,0.035);white-space:nowrap;letter-spacing:0.05em;pointer-events:none;z-index:0;}
+.hero-content{position:relative;z-index:2;max-width:760px;margin:0 auto;text-align:center;}
+.hero-eyebrow{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:28px;}
+.eyebrow-line{width:40px;height:1px;background:rgba(201,162,39,.5);}
+.eyebrow-text{font-size:0.75rem;letter-spacing:0.3em;text-transform:uppercase;color:#c9a227;}
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,11vw,8rem);line-height:.95;letter-spacing:0.04em;margin-bottom:28px;}
+h1 .gold{color:#c9a227;}
+.hero-desc{font-size:1.05rem;color:rgba(245,240,230,.55);max-width:480px;line-height:1.75;margin:0 auto 44px;}
+.hero-actions{display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;}
+.btn-gold{display:inline-flex;align-items:center;gap:10px;background:#c9a227;color:#070807;padding:16px 40px;border-radius:2px;font-size:0.8rem;font-weight:700;text-decoration:none;letter-spacing:0.15em;text-transform:uppercase;transition:transform .2s,box-shadow .2s,background .2s;box-shadow:0 0 50px rgba(201,162,39,0.25);}
+.btn-gold:hover{transform:translateY(-2px);background:#e0bb3a;box-shadow:0 0 70px rgba(201,162,39,0.45);}
+.btn-outline{border:1px solid rgba(245,240,230,.3);color:#f5f0e6;padding:15px 36px;border-radius:2px;font-size:0.8rem;text-decoration:none;letter-spacing:0.15em;text-transform:uppercase;transition:border-color .2s,background .2s;}
+.btn-outline:hover{border-color:#c9a227;background:rgba(201,162,39,.06);}
+.scroll-cue{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(245,240,230,.35);display:flex;flex-direction:column;align-items:center;gap:10px;z-index:2;}
+.scroll-cue::after{content:'';width:1px;height:40px;background:linear-gradient(to bottom,rgba(201,162,39,.6),transparent);animation:scrollPulse 2s ease-in-out infinite;}
+@keyframes scrollPulse{0%,100%{opacity:.3}50%{opacity:1}}
+
+/* MARQUEE */
+.marquee{padding:22px 0;overflow:hidden;border-top:1px solid rgba(201,162,39,0.15);border-bottom:1px solid rgba(201,162,39,0.15);position:relative;z-index:1;}
+.marquee-track{display:flex;gap:48px;width:max-content;animation:mq 28s linear infinite;}
+.marquee-item{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.15em;color:rgba(201,162,39,0.55);white-space:nowrap;display:flex;align-items:center;gap:24px;}
+.marquee-item::after{content:'✂';font-family:'Inter',sans-serif;font-size:0.8rem;color:rgba(201,162,39,0.3);}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* SECTION HEADERS */
+.section{padding:120px 60px;position:relative;z-index:1;}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:70px;flex-wrap:wrap;gap:24px;border-bottom:1px solid rgba(201,162,39,0.12);padding-bottom:36px;}
+.section-label{font-size:0.75rem;letter-spacing:0.3em;text-transform:uppercase;color:#c9a227;margin-bottom:14px;}
+.section-head h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5.5vw,4.5rem);letter-spacing:0.03em;line-height:1;}
+.section-head p{font-size:0.875rem;color:rgba(245,240,230,.4);max-width:280px;line-height:1.7;}
+
+/* SERVICES */
+.services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0;max-width:1100px;margin:0 auto;}
+.service-item{padding:32px 0;border-bottom:1px solid rgba(201,162,39,0.08);display:grid;grid-template-columns:1fr auto;align-items:center;gap:20px;transition:background .3s,padding-left .3s;cursor:default;}
+.service-item:hover{background:rgba(201,162,39,0.03);padding-left:12px;}
+.service-item:nth-child(odd){padding-right:60px;border-right:1px solid rgba(201,162,39,0.08);}
+.service-item:nth-child(even){padding-left:60px;}
+.service-name{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:0.05em;margin-bottom:6px;}
+.service-desc{font-size:0.8rem;color:rgba(245,240,230,.4);line-height:1.55;}
+.service-price{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:#c9a227;white-space:nowrap;}
+
+/* EXPERIENCE */
+.experience{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1200px;margin:0 auto;}
+.exp-left h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,4.5vw,3.8rem);letter-spacing:0.03em;line-height:1.1;margin-bottom:24px;}
+.exp-left p{font-size:0.95rem;color:rgba(245,240,230,.5);line-height:1.8;margin-bottom:36px;}
+.exp-stats{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+.exp-stat{border-top:1px solid rgba(201,162,39,0.25);padding-top:18px;}
+.exp-stat-num{font-family:'Bebas Neue',sans-serif;font-size:2.6rem;color:#c9a227;letter-spacing:0.04em;}
+.exp-stat-label{font-size:0.72rem;color:rgba(245,240,230,.4);letter-spacing:0.1em;text-transform:uppercase;margin-top:4px;}
+.exp-right{display:grid;grid-template-columns:1fr 1fr;gap:16px;height:520px;}
+.exp-img{border-radius:6px;overflow:hidden;position:relative;border:1px solid rgba(201,162,39,0.12);transition:transform .3s ease;}
+.exp-img.tall{grid-row:span 2;}
+.exp-img-inner{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem;position:relative;}
+.ei1{background:linear-gradient(135deg,#0d1410,#091410);}
+.ei2{background:linear-gradient(135deg,#120e05,#1a1306);}
+.ei3{background:linear-gradient(135deg,#0a0a0a,#161616);}
+.exp-img-label{position:absolute;bottom:14px;left:14px;font-family:'Bebas Neue',sans-serif;font-size:0.85rem;letter-spacing:0.1em;color:rgba(201,162,39,0.7);}
+
+/* TEAM */
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1200px;margin:0 auto;}
+.team-card{background:rgba(255,255,255,0.02);border:1px solid rgba(201,162,39,0.1);border-radius:8px;padding:0;overflow:hidden;transition:transform .3s,border-color .3s;}
+.team-card:hover{transform:translateY(-6px);border-color:rgba(201,162,39,0.35);}
+.team-photo{height:200px;display:flex;align-items:center;justify-content:center;font-size:3rem;}
+.team-info{padding:20px;}
+.team-name{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:0.05em;}
+.team-role{font-size:0.75rem;color:#c9a227;letter-spacing:0.1em;text-transform:uppercase;margin-top:4px;}
+.team-desc{font-size:0.78rem;color:rgba(245,240,230,.4);line-height:1.6;margin-top:10px;}
+
+/* BOOKING */
+.booking{position:relative;z-index:1;padding:90px 60px;background:linear-gradient(135deg,rgba(201,162,39,0.08),rgba(26,61,47,0.15));border-top:1px solid rgba(201,162,39,0.12);border-bottom:1px solid rgba(201,162,39,0.12);text-align:center;}
+.booking h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,5vw,4rem);letter-spacing:0.04em;margin-bottom:16px;}
+.booking p{font-size:0.95rem;color:rgba(245,240,230,.5);margin-bottom:36px;}
+.booking-btns{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;}
+
+footer{padding:36px 60px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;position:relative;z-index:1;}
+footer p{font-size:0.8rem;color:rgba(245,240,230,.25);}
+footer a{color:#c9a227;text-decoration:none;}
+
+@media(max-width:900px){
+  header{padding:20px 24px;} nav{display:none;}
+  .hero{padding:0 24px;}
+  .section{padding:80px 24px;}
+  .services-grid,.experience,.team-grid{grid-template-columns:1fr;}
+  .service-item:nth-child(odd){padding-right:0;border-right:none;}
+  .service-item:nth-child(even){padding-left:0;}
+  .exp-right{height:340px;}
+  .team-grid{gap:16px;}
+  .booking,footer{padding:60px 24px;}
+}
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+
+<header>
+  <div class="logo">CROWN <span>&amp;</span> CO</div>
+  <nav>
+    <a href="#services">Services</a>
+    <a href="#experience">The Shop</a>
+    <a href="#team">Barbers</a>
+    <a href="#booking" class="nav-book">Book Now</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-bg-text">CROWN</div>
+  <div class="hero-content">
+    <div class="hero-eyebrow"><span class="eyebrow-line"></span><span class="eyebrow-text">Premium Barbershop · Est. 2014</span><span class="eyebrow-line"></span></div>
+    <h1>Sharp Cuts.<br /><span class="gold">Sharper</span> Style.</h1>
+    <p class="hero-desc">Classic barbering with a modern edge — precision fades, hot towel shaves, and beard sculpting in a relaxed, no-rush atmosphere.</p>
+    <div class="hero-actions">
+      <a href="#booking" class="btn-gold">Book Your Slot</a>
+      <a href="tel:01234567890" class="btn-outline">Call 01234 567 890</a>
+    </div>
+  </div>
+  <div class="scroll-cue">Scroll</div>
+</section>
+
+<div class="marquee">
+  <div class="marquee-track">
+    <span class="marquee-item">Skin Fades</span><span class="marquee-item">Hot Towel Shaves</span><span class="marquee-item">Beard Sculpting</span><span class="marquee-item">Walk-Ins Welcome</span><span class="marquee-item">Kids Cuts</span><span class="marquee-item">Hair Tattoos</span><span class="marquee-item">Grooming Packages</span><span class="marquee-item">Open 7 Days</span>
+    <span class="marquee-item">Skin Fades</span><span class="marquee-item">Hot Towel Shaves</span><span class="marquee-item">Beard Sculpting</span><span class="marquee-item">Walk-Ins Welcome</span><span class="marquee-item">Kids Cuts</span><span class="marquee-item">Hair Tattoos</span><span class="marquee-item">Grooming Packages</span><span class="marquee-item">Open 7 Days</span>
+  </div>
+</div>
+
+<section class="section" id="services">
+  <div class="section-head">
+    <div>
+      <div class="section-label">Price List</div>
+      <h2>Services</h2>
+    </div>
+    <p>No appointment necessary for standard cuts — though booking ahead guarantees your favourite barber.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-item"><div><div class="service-name">Classic Haircut</div><div class="service-desc">Scissor or clipper cut, styled to finish</div></div><div class="service-price">£18</div></div>
+    <div class="service-item"><div><div class="service-name">Skin Fade</div><div class="service-desc">Precision fade with razor-sharp finish</div></div><div class="service-price">£22</div></div>
+    <div class="service-item"><div><div class="service-name">Beard Trim &amp; Shape</div><div class="service-desc">Shape, line-up, and conditioning oil</div></div><div class="service-price">£12</div></div>
+    <div class="service-item"><div><div class="service-name">Hot Towel Shave</div><div class="service-desc">Traditional straight razor shave with hot towel prep</div></div><div class="service-price">£25</div></div>
+    <div class="service-item"><div><div class="service-name">Cut &amp; Beard Combo</div><div class="service-desc">Full haircut plus beard trim &amp; shape</div></div><div class="service-price">£28</div></div>
+    <div class="service-item"><div><div class="service-name">Kids Cut (Under 12)</div><div class="service-desc">Patient, friendly cuts for the little ones</div></div><div class="service-price">£12</div></div>
+    <div class="service-item"><div><div class="service-name">Hair Tattoo / Design</div><div class="service-desc">Custom razor-etched designs &amp; part lines</div></div><div class="service-price">+£8</div></div>
+    <div class="service-item"><div><div class="service-name">The Full Works</div><div class="service-desc">Cut, beard, hot towel shave &amp; scalp massage</div></div><div class="service-price">£38</div></div>
+  </div>
+</section>
+
+<section class="section experience" id="experience">
+  <div class="exp-left">
+    <h2>A Shop Built<br />for the Ritual</h2>
+    <p>Leather chairs, the buzz of clippers, and a playlist that never misses. Crown &amp; Co is more than a haircut — it's twenty minutes to slow down, get sharp, and leave feeling like yourself again.</p>
+    <a href="#booking" class="btn-gold" style="display:inline-flex;">Book Your Chair &rarr;</a>
+    <div class="exp-stats" style="margin-top:48px;">
+      <div class="exp-stat"><div class="exp-stat-num">4.9★</div><div class="exp-stat-label">Google Rating</div></div>
+      <div class="exp-stat"><div class="exp-stat-num">10yr</div><div class="exp-stat-label">Est. 2014</div></div>
+      <div class="exp-stat"><div class="exp-stat-num">5</div><div class="exp-stat-label">Chairs</div></div>
+      <div class="exp-stat"><div class="exp-stat-num">7</div><div class="exp-stat-label">Days a Week</div></div>
+    </div>
+  </div>
+  <div class="exp-right">
+    <div class="exp-img tall ei1"><div class="exp-img-inner">💈</div><div class="exp-img-label">The Floor</div></div>
+    <div class="exp-img ei2"><div class="exp-img-inner">🪒</div><div class="exp-img-label">Shave Station</div></div>
+    <div class="exp-img ei3"><div class="exp-img-inner">✂️</div><div class="exp-img-label">Tools of the Trade</div></div>
+  </div>
+</section>
+
+<section class="section" id="team">
+  <div class="section-head">
+    <div>
+      <div class="section-label">Meet the Team</div>
+      <h2>Your Barbers</h2>
+    </div>
+    <p>Five chairs, five specialists. Book with anyone — or request your favourite.</p>
+  </div>
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-photo" style="background:linear-gradient(135deg,#1a1306,#0d0a04);">💈</div>
+      <div class="team-info"><div class="team-name">Marcus</div><div class="team-role">Owner &amp; Master Barber</div><div class="team-desc">20 years experience, fades &amp; classic cuts</div></div>
+    </div>
+    <div class="team-card">
+      <div class="team-photo" style="background:linear-gradient(135deg,#0d1410,#091410);">✂️</div>
+      <div class="team-info"><div class="team-name">Jamal</div><div class="team-role">Senior Barber</div><div class="team-desc">Skin fades &amp; hair tattoo specialist</div></div>
+    </div>
+    <div class="team-card">
+      <div class="team-photo" style="background:linear-gradient(135deg,#161616,#0a0a0a);">🪒</div>
+      <div class="team-info"><div class="team-name">Tomasz</div><div class="team-role">Barber</div><div class="team-desc">Traditional hot towel shaves</div></div>
+    </div>
+    <div class="team-card">
+      <div class="team-photo" style="background:linear-gradient(135deg,#14110a,#0a0805);">💇</div>
+      <div class="team-info"><div class="team-name">Leo</div><div class="team-role">Junior Barber</div><div class="team-desc">Kids cuts &amp; modern styles</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="booking" id="booking">
+  <h2>Walk In or Book Ahead</h2>
+  <p>Open Tuesday–Sunday, 9am–6pm. Late nights Thursday until 8pm.</p>
+  <div class="booking-btns">
+    <a href="tel:01234567890" class="btn-gold">Call to Book</a>
+    <a href="#" class="btn-outline">Book Online</a>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2026 Crown &amp; Co Barbershop</p>
+  <p>Built by <a href="https://pixelforgestudio.co.uk">PixelForge Studio</a></p>
+</footer>
+
+<script>
+const canvas=document.getElementById('bg'),ctx=canvas.getContext('2d');
+let W,H;function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
+resize();window.addEventListener('resize',resize);
+
+// Floating gold dust particles
+class P{constructor(){this.reset();}reset(){this.x=Math.random()*W;this.y=Math.random()*H;this.vx=(Math.random()-.5)*.3;this.vy=(Math.random()-.5)*.3;this.life=Math.random();this.decay=Math.random()*.003+.001;this.r=Math.random()*1.5+.3;}}
+const particles=[];for(let i=0;i<50;i++)particles.push(new P());
+
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  // ambient glows
+  [{x:W*.2,y:H*.25,r:380,a:.05,c:'201,162,39'},{x:W*.85,y:H*.7,r:340,a:.04,c:'26,61,47'}].forEach(o=>{
+    const g=ctx.createRadialGradient(o.x,o.y,0,o.x,o.y,o.r);g.addColorStop(0,`rgba(${o.c},${o.a})`);g.addColorStop(1,'transparent');
+    ctx.beginPath();ctx.arc(o.x,o.y,o.r,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();
+  });
+  particles.forEach(p=>{
+    p.x+=p.vx;p.y+=p.vy;p.life-=p.decay;if(p.life<=0)p.reset();
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(201,162,39,${p.life*.4})`;ctx.fill();
+  });
+  requestAnimationFrame(draw);
+}
+draw();
+
+// 3D tilt on experience + team images
+document.querySelectorAll('.exp-img, .team-card').forEach(c=>{
+  c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5;const y=(e.clientY-r.top)/r.height-.5;c.style.transform=`perspective(700px) rotateX(${-y*8}deg) rotateY(${x*8}deg)`;});
+  c.addEventListener('mouseleave',()=>{c.style.transform='';});
+});
+document.querySelectorAll('.service-item').forEach(c=>{
+  c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5;c.style.transform=`perspective(800px) rotateY(${x*4}deg)`;});
+  c.addEventListener('mouseleave',()=>{c.style.transform='';});
+});
+</script>
+</body>
+</html>

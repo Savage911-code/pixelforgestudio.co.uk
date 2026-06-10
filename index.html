@@ -378,8 +378,6 @@
     }
     .showcase-item:hover { transform: scale(1.02) rotateY(-2deg); box-shadow: 0 40px 100px rgba(0,0,0,0.5); }
     .showcase-item.tall { grid-row: span 2; }
-    .showcase-item.wide { grid-column: span 2; }
-    .showcase-item.wide .showcase-mock { height: 200px; }
     .showcase-mock {
       width: 100%;
       height: 280px;
@@ -852,20 +850,33 @@
         </div>
       </a>
 
-      <a href="demos/gym.html" target="_blank" rel="noopener" class="showcase-item wide">
+      <a href="demos/gym.html" target="_blank" rel="noopener" class="showcase-item">
         <div class="showcase-mock" style="background:linear-gradient(135deg,#060406,#1a0606);">
-          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:24px;">
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;">
             <div style="width:56px;height:56px;background:linear-gradient(135deg,#dc2626,#f97316);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 0 30px rgba(220,38,38,0.5);">🏋️</div>
-            <div>
-              <div style="font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:900;letter-spacing:0.1em;">FORGE</div>
-              <div style="font-size:0.75rem;color:#64748b;">High-energy gym &amp; fitness brand</div>
-            </div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:1.2rem;font-weight:900;letter-spacing:0.1em;">FORGE</div>
+            <div style="font-size:0.7rem;color:#64748b;text-align:center;max-width:160px;">High-energy gym &amp; fitness brand</div>
           </div>
         </div>
         <div class="showcase-overlay">
           <span class="overlay-tag">Fitness</span>
           <div class="overlay-title">FORGE Gym</div>
           <div class="overlay-sub">Bold, high-energy brand site</div>
+        </div>
+      </a>
+
+      <a href="demos/barbershop.html" target="_blank" rel="noopener" class="showcase-item">
+        <div class="showcase-mock" style="background:linear-gradient(135deg,#070807,#0d1410);">
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;">
+            <div style="width:56px;height:56px;background:linear-gradient(135deg,#c9a227,#e0bb3a);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 0 30px rgba(201,162,39,0.5);">💈</div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:1.2rem;font-weight:700;letter-spacing:0.05em;">Crown &amp; Co</div>
+            <div style="font-size:0.7rem;color:#64748b;text-align:center;max-width:160px;">Premium barbershop &mdash; gold &amp; charcoal</div>
+          </div>
+        </div>
+        <div class="showcase-overlay">
+          <span class="overlay-tag">Local Service</span>
+          <div class="overlay-title">Crown &amp; Co</div>
+          <div class="overlay-sub">Premium Barbershop</div>
         </div>
       </a>
 
