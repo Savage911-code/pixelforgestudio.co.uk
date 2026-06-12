@@ -70,12 +70,13 @@ section{position:relative;z-index:1;padding:110px 60px;max-width:1240px;margin:0
 .swatch:hover::after{opacity:1;}
 .swatch span{position:relative;z-index:2;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--cream);opacity:0;transform:translateY(8px);transition:all .35s;}
 .swatch:hover span{opacity:1;transform:translateY(0);}
-.sw-1{background:repeating-linear-gradient(100deg,#a06a3c 0 28px,#8a5a35 28px 56px);}
-.sw-2{background:repeating-linear-gradient(95deg,#5c4636 0 24px,#4a3829 24px 48px);}
-.sw-3{background:repeating-linear-gradient(105deg,#d8c3a5 0 30px,#c2a986 30px 60px);}
-.sw-4{background:repeating-linear-gradient(98deg,#3a2a20 0 22px,#2c2018 22px 44px);}
-.sw-5{background:repeating-linear-gradient(102deg,#b8895c 0 26px,#a3744a 26px 52px);}
-.sw-6{background:repeating-linear-gradient(96deg,#e6dccb 0 32px,#d4c6ae 32px 64px);}
+.swatch{background-size:cover;background-position:center;}
+.sw-1{background-image:linear-gradient(rgba(18,13,9,0.12),rgba(18,13,9,0.12)),url(../assets/flooring/golden-oak.jpg);}
+.sw-2{background-image:linear-gradient(rgba(18,13,9,0.12),rgba(18,13,9,0.12)),url(../assets/flooring/smoked-walnut.jpg);filter:sepia(.55) saturate(1.4) brightness(.78);}
+.sw-3{background-image:linear-gradient(rgba(18,13,9,0.12),rgba(18,13,9,0.12)),url(../assets/flooring/limewashed-ash.jpg);}
+.sw-4{background-image:linear-gradient(rgba(18,13,9,0.4),rgba(18,13,9,0.4)),url(../assets/flooring/charcoal-slate.jpg);filter:grayscale(.5) brightness(.7);}
+.sw-5{background-image:linear-gradient(rgba(18,13,9,0.12),rgba(18,13,9,0.12)),url(../assets/flooring/honey-maple.jpg);}
+.sw-6{background-image:linear-gradient(rgba(18,13,9,0.12),rgba(18,13,9,0.12)),url(../assets/flooring/pearl-stone.jpg);}
 
 /* COLLECTION CARDS */
 .collections{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
@@ -254,8 +255,8 @@ footer a:hover{text-decoration:underline;}
   <div class="ba-grid">
     <div class="reveal">
       <div class="ba-slider">
-        <div class="ba-after" style="background:repeating-linear-gradient(100deg,#c8884f 0 30px,#a06a3c 30px 60px);"><div class="ba-label">After</div></div>
-        <div class="ba-before" style="background:linear-gradient(135deg,#3a3530,#52483f,#6b5c4f);"><div class="ba-label">Before</div></div>
+        <div class="ba-after" style="background:url(../assets/flooring/living-room.jpg) center/cover;"><div class="ba-label">After</div></div>
+        <div class="ba-before" style="background:url(../assets/flooring/living-room.jpg) center/cover;filter:grayscale(.85) sepia(.25) brightness(.65);"><div class="ba-label">Before</div></div>
         <div class="ba-handle"><div class="ba-handle-line"></div><div class="ba-handle-circle">&#8596;</div></div>
         <input type="range" min="0" max="100" value="50" class="ba-range" aria-label="Before and after slider">
       </div>
@@ -263,8 +264,8 @@ footer a:hover{text-decoration:underline;}
     </div>
     <div class="reveal">
       <div class="ba-slider">
-        <div class="ba-after" style="background:repeating-linear-gradient(96deg,#5c4636 0 24px,#4a3829 24px 48px);"><div class="ba-label">After</div></div>
-        <div class="ba-before" style="background:linear-gradient(135deg,#2e2a26,#4a443c,#615a50);"><div class="ba-label">Before</div></div>
+        <div class="ba-after" style="background:url(../assets/flooring/kitchen.jpg) center/cover;"><div class="ba-label">After</div></div>
+        <div class="ba-before" style="background:url(../assets/flooring/kitchen.jpg) center/cover;filter:grayscale(.85) sepia(.25) brightness(.65);"><div class="ba-label">Before</div></div>
         <div class="ba-handle"><div class="ba-handle-line"></div><div class="ba-handle-circle">&#8596;</div></div>
         <input type="range" min="0" max="100" value="50" class="ba-range" aria-label="Before and after slider">
       </div>
